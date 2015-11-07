@@ -2,10 +2,11 @@
 #include <sys/time.h>
 #include <stddef.h>
 
-unsigned int
+void
 sleep_us(unsigned int u_seconds)
 {
 	struct timeval tv;
-	tv.tv_usec = u_seconds;
-	return select(0, NULL, NULL, NULL, &tv);
+	tv.tv_sec = u_seconds / 1000000;
+	tv.tv_usec = u_seconds % 1000000;
+	select(0, NULL, NULL, NULL, &tv);
 }
