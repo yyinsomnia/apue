@@ -1,32 +1,27 @@
 #include "apue.h"
 
-static void f1(void), f2(void);
+int		globvar = 6;		/* external variable in initialized data */
 
 int
 main(void)
 {
-	f1();
-	f2();
-	_exit(0);
-}
-
-static void
-f1(void)
-{
+	int		var;		/* automatic variable on the stack */
 	pid_t	pid;
 
+	var = 88;
+	printf("before vfork\n");	/* we don't flush stdio */
 	if ((pid = vfork()) < 0) {
 		err_sys("vfork error");
+	} else if (pid == 0) {		/* child */
+		globvar++;				/* modify parent's variables */
+		var++;
+		exit(0);				/* child terminates, use exit also ok */
+		fclose(stdout); 		/* it will not work */
 	}
-}
 
-static void
-f2(void)
-{
-	char	buf[1000];
-	int		i;
-
-	for (i = 0; i < sizeof(buf); i++) {
-		buf[i] = 0;
-	}
+	/* fclose(stdout); this will be work, why*/
+	/* parent continues here */
+	printf("pid = %ld, glob = %d, var = %d\n", (long)getpid(), globvar,
+	  var);
+	exit(0);
 }
