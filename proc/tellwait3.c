@@ -13,9 +13,9 @@ main(void)
 		err_sys("fork error");
 	} else if (pid == 0) {
 		charatatime("output from child\n");
-		WAIT_PARENT();
+		TELL_PARENT(getpid());
 	} else {
-		WAIT_CHILD(pid); /* child goes first */
+		WAIT_CHILD(); /* child goes first */
 		charatatime("output from parent\n");
 	}
 	exit(0);
