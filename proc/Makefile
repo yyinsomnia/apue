@@ -17,7 +17,7 @@ ifeq "$(PLATFORM)" "solaris"
   ACCTFLAGS = -DHAS_AC_STAT
 endif
 
-PROGS =	echoall exec1 exec2 fork1 fork2 nice pruids tellwait1 tellwait2 tellwait3 test1 times1 vfork1 vfork2 vfork3 wait1 wait3
+PROGS =	echoall exec1 exec2 fork1 fork2 nice pruids tellwait1 tellwait2 tellwait3 test1 times1 vfork1 vfork2 vfork3 wait1 wait3 zombie
 MOREPROGS = systest1 systest3
 
 all:	$(PROGS) $(MOREPROGS) system.o $(ACCT)
