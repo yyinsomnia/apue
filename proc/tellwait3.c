@@ -13,7 +13,7 @@ main(void)
 		err_sys("fork error");
 	} else if (pid == 0) {
 		charatatime("output from child\n");
-		TELL_PARENT(getpid());
+		TELL_PARENT(getppid()); /* fxxk, the arg is ppid, not pid */
 	} else {
 		WAIT_CHILD(); /* child goes first */
 		charatatime("output from parent\n");
